@@ -53,7 +53,7 @@ class CompositPattern {
 		@Override
 		public void renderTo(Graphics surface) {
 			prepare(surface);
-			surface.drawText(text);
+			//surface.drawText(text);
 			
 		}
 	}
