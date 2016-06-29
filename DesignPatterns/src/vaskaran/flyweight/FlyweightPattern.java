@@ -6,20 +6,20 @@ import java.util.Map;
 public class FlyweightPattern {
 
 	static interface IRobot{
-		void Print();
+		void print(String robotName);
 	}
 	
 	static class SmallRobot implements IRobot{
-		public void Print(){
-			System.out.println("This is a Small Robot");
+		public void print(String robotName){
+			System.out.println("This is a Small Robot, " + robotName);
 		}
 	}
 	
 	static class LargeRobot implements IRobot{
 
 		@Override
-		public void Print() {
-			System.out.println("I am a Large Robot");
+		public void print(String robotName) {
+			System.out.println("I am a Large Robot, " + robotName);
 		}
 		
 	}
@@ -31,7 +31,7 @@ public class FlyweightPattern {
 			return shapes.size();
 		}
 		
-		public IRobot GetRobotFromFactory(String RobotCategory) throws Exception{
+		public IRobot GetRobotFromFactory(String RobotCategory) {
 			IRobot robotCategory = null;
 			if(shapes.containsKey(RobotCategory)){
 				robotCategory = shapes.get(RobotCategory);
@@ -48,23 +48,23 @@ public class FlyweightPattern {
 					shapes.put("large", robotCategory);
 					break;
 				default:
-					throw new Exception(" Robot factory can create only small and large shapes.");
+					throw new RuntimeException(" Robot factory can create only small and large shapes.");
 				}
 			}
 			return robotCategory;
 		}
 	}
 	
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) {
 		RobotFactory myfactory = new RobotFactory();
 		System.out.println("\n***Flyweight Pattern Example***\n");
 		
 		IRobot shape = myfactory.GetRobotFromFactory("small");
-		shape.Print();
+		shape.print("IROBOT");
 		
 		for (int i = 0; i < 2; i++){
 			shape = myfactory.GetRobotFromFactory("small");
-			shape.Print();
+			shape.print("MROBOT");
 		}
 		
 		int NumOfDistinctRobots = myfactory.TotalObjectsCreated();
@@ -72,7 +72,7 @@ public class FlyweightPattern {
 		
 		for (int i = 0; i < 5; i++){
 			shape = myfactory.GetRobotFromFactory("large");
-			shape.Print();
+			shape.print("LROBOT");
 		}
 		
 		NumOfDistinctRobots = myfactory.TotalObjectsCreated();
